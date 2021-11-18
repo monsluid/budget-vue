@@ -1,0 +1,9 @@
+{
+	"transaction": [
+		"id":1,
+		"concept":"Salario",
+		"monto":100,
+		"tipo": "Ingreso",
+		"fijo": true
+	]
+}

@@ -1,26 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div class="container">
+  <div class="row">
+  	<div class="col-12 col-md-6">
+  		<Incomings/>
+  	</div>
+  	<div class="col-12 col-md-6">
+  		<Expenses/>
+  	</div>
+  </div>
+	<NewTransaction/>
+</div>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Incomings from './components/Incomings';
+import Expenses from './components/Expenses';
+import NewTransaction from './components/NewTransaction.vue';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+	components: { Incomings, Expenses, NewTransaction }
+
+  
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
