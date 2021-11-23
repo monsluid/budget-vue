@@ -1,9 +1,25 @@
 {
-	"transaction": [
+	"transactions": [
+		{
 		"id":1,
-		"concept":"Salario",
-		"monto":100,
-		"tipo": "Ingreso",
-		"fijo": true
+		"title":"Salario",
+		"amount":100,
+		"type": "Incoming",
+		"fixed": true
+		},
+		{
+		"id":2,
+		"title":"Transporte",
+		"amount":20,
+		"type": "Expense",
+		"fixed": true
+		},
+		{
+		"id":3,
+		"title":"Comida",
+		"amount":10,
+		"type": "Expense",
+		"fixed": false
+		}
 	]
 }
