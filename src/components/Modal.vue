@@ -7,7 +7,6 @@
 			<slot name="header"/>
 			<slot name="body"/>
 			<slot name="footer"/>
-			<slot name="exposed" :newTitle="newTitle"/>
 		</div>
 	</div>
 </template>
@@ -15,11 +14,9 @@
 <script>
 export default {
  	emit:['on:close'],
- 	props:['title'],
- 	setup(props, context){
+ 	setup(){
 
 		return {
-			newTitle: props.title?.toUpperCase()
 		}
  	}
 }
@@ -37,6 +34,7 @@ export default {
     background-color: rgba(0, 0, 0, 0.5);
     align-items: center;
     justify-content: center;
+    z-index: 98;
 }
 
 .modal-container {

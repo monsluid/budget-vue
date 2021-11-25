@@ -1,16 +1,15 @@
 <template>
 	<button class="btn btn-danger fab"
-		@click="isOpen=true"
+		@click="setModal(true)"
 	>Nuevo</button>
 
-	<Modal v-if="isOpen"
-		@on:close="isOpen=false"
-		title="hola mundo"
+	<Modal v-if="isOpenModal()"
+		@on:close="setModal(false)"
 	>
 		<template v-slot:header>
 		<div class="modal-header">
 			<h5 class="modal-title">Agregar Movimiento</h5>
-			<button @click="isOpen=false" class="btn-close"></button>		
+			<button @click="setModal(false)" class="btn-close"></button>		
 		</div>
 		</template>
 		<template v-slot:body>
@@ -36,7 +35,7 @@
 			<button class="btn btn-primary">Finalizar</button>
 			<button 
 				class="btn btn-secondary"
-				@click="isOpen=false"
+				@click="setModal(false)"
 			>
 				Salir
 			</button>
@@ -51,18 +50,19 @@
 
 <script>
 import { ref } from 'vue';
+import { useStore } from 'vuex'
+
 import Modal from '../components/Modal'
 
 export default{
 	components: { Modal },
 	setup(){
+		const store = useStore()
 
 		return {
-			isOpen: ref(false),
-			transaction: ref({})
-				
+			isOpenModal: () => store.getters['getModalStatus'],
+			setModal: (isOpen) => store.commit('setModal', isOpen)
 		}
-
 	}
 }
 </script>

@@ -3,10 +3,10 @@
 	<h1 class="title-app text-center my-3">Presupuesto <span> Vue </span></h1>
   <div class="row">
   	<div class="col-12 col-md-6">
-  		<Incomings/>
+  		<Incomings :incomings="getIncomings()"/>
   	</div>
   	<div class="col-12 col-md-6">
-  		<Expenses/>
+  		<Expenses :expenses="getExpenses()"/>
   	</div>
   </div>
 	<NewTransaction/>
@@ -15,6 +15,7 @@
 
 <script>
 import { onMounted } from 'vue'
+import { useStore } from 'vuex'
 import Incomings from './components/Incomings';
 import Expenses from './components/Expenses';
 import NewTransaction from './components/NewTransaction.vue';
@@ -24,6 +25,8 @@ import useTransaction from './composables/useTransaction';
 export default {
 	components: { Incomings, Expenses, NewTransaction },
 	setup(){
+
+		const store = useStore()
 		
 		const { getAllTransactions, 
 			      getIncomings, 
@@ -35,7 +38,9 @@ export default {
 		})
 
 		return {
-			getAllTransactions, getIncomings, getExpenses
+			getAllTransactions, getIncomings, getExpenses,
+
+			setModal: (isOpen) => store.commit('setModal', isOpen)
 		}
 
 	}

@@ -4,7 +4,8 @@ import apiConnection from '../api/transactionApi'
 
 export default createStore({
 	state: {
-		transactions: []
+		transactions: [],
+		isOpenModal: false
   },
 	mutations: {
 		setTransactions(state, values){
@@ -15,6 +16,10 @@ export default createStore({
 
 			transaction.id = uuidv4()
 			state.transactions.push(transaction)
+		},
+
+		setModal(state, isOpen) {
+			state.isOpenModal = isOpen
 		}
   },
 	actions: {
@@ -28,7 +33,8 @@ export default createStore({
 			} catch(error) {
 				console.log(error)
 			}
-		}
+		},
+
 	},
 	getters:{
 		getAllTransactions(state){
@@ -41,6 +47,10 @@ export default createStore({
 		getExpenses(state){
 			return state.transactions.filter((transaction) => transaction.type === 'Expense')
 		},
+
+		getModalStatus(state) {
+			return state.isOpenModal
+		}
 	},
   modules: {
   }
