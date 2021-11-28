@@ -1,41 +1,41 @@
 <template>
 	<button class="btn btn-danger fab"
-		@click="setModal(true)"
+		@click="isOpen = true"
 	>Nuevo</button>
 
-	<Modal v-if="isOpenModal()"
-		@on:close="setModal(false)"
+	<Modal v-if="isOpen"
+		@on:close="isOpen = false"
 	>
 		<template v-slot:header>
 		<div class="modal-header">
 			<h5 class="modal-title">Agregar Movimiento</h5>
-			<button @click="setModal(false)" class="btn-close"></button>		
 		</div>
 		</template>
 		<template v-slot:body>
 		<div class="modal-body">
-			<form>
+			<form @submit.prevent="onClick">
 				<label for="Concepto" class="form-label">Concepto</label>
-				<input type="text" class="form-control" />
+				<input type="text" class="form-control" v-model="transaction.title"/>
 				<label for="amount" class="form-label mt-3">Monto</label>
-				<input type="number" class="form-control" />
+				<input type="number" class="form-control" v-model="transaction.amount"/>
 				<label for="type" class="form-label mt-3">Tipo</label>
-				<select class="form-select">
+				<select class="form-select" v-model="transaction.type">
 					<option value="Incoming">Ingreso</option>
 					<option value="Expense">Gasto</option>
 				</select>
 				<div class="form-check form-switch my-3">
 					<input class="form-check-input"
+						v-model="transaction.fixed"
 						type="checkbox" 
 						role="switch" 
 						id="flexSwitchCheckDefault">
 					<label class="form-check-label" for="flexSwitchCheckDefault">Fijo</label>
 				</div>	
 		<div class="modal-footer">
-			<button class="btn btn-primary">Finalizar</button>
+			<button type="submit" class="btn btn-primary">Finalizar</button>
 			<button 
 				class="btn btn-secondary"
-				@click="setModal(false)"
+				@click="isOpen = false"
 			>
 				Salir
 			</button>
@@ -53,15 +53,26 @@ import { ref } from 'vue';
 import { useStore } from 'vuex'
 
 import Modal from '../components/Modal'
+import useTransaction from '../composables/useTransaction'
 
 export default{
 	components: { Modal },
 	setup(){
-		const store = useStore()
+		const { newTransaction } = useTransaction()
 
+		const isOpen = ref(false)
+		const transaction = ref({ title:"", amount:"", type:"", fixed: false })
+		
+		const onClick = () => {
+			newTransaction(transaction.value)
+			transaction.value = { title:"", amount:"", type:"", fixed: false }
+			isOpen.value = false
+		}
+
+	
 		return {
-			isOpenModal: () => store.getters['getModalStatus'],
-			setModal: (isOpen) => store.commit('setModal', isOpen)
+			isOpen, transaction,
+			onClick
 		}
 	}
 }

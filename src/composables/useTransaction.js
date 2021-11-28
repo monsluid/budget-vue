@@ -10,7 +10,10 @@ const useTransaction = () => {
 		getIncomings: () => store.getters['getIncomings'],
 		getExpenses: () => store.getters['getExpenses'],
 
-		loadTransactions: () => store.dispatch('loadTransactions')
+		loadTransactions: () => store.dispatch('loadTransactions'),
+		newTransaction: (transaction) => store.dispatch('newTransaction', transaction),
+		updateTransaction: (transaction) => store.dispatch('updateTransaction',transaction),
+		deleteTransaction: (id) => store.dispatch('deleteTransaction', id)
 	}
 
 }
