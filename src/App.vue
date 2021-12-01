@@ -9,6 +9,11 @@
   		<Expenses :expenses="getExpenses()"/>
   	</div>
   </div>
+  <div class="row">
+  	<div class="col-12 col-md-6 offset-md-3">
+  		<Results/>
+  	</div>
+  </div>
 	<NewTransaction/>
 </div> 
 </template>
@@ -16,18 +21,18 @@
 <script>
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
+
 import Incomings from './components/Incomings';
 import Expenses from './components/Expenses';
 import NewTransaction from './components/NewTransaction.vue';
+import Results from './components/Results';
 
 import useTransaction from './composables/useTransaction';
 
 export default {
-	components: { Incomings, Expenses, NewTransaction },
+	components: { Incomings, Expenses, NewTransaction, Results },
 	setup(){
-
-		const store = useStore()
-		
+	
 		const { getAllTransactions, 
 			      getIncomings, 
 			      getExpenses,
@@ -40,13 +45,11 @@ export default {
 		return {
 			getAllTransactions, getIncomings, getExpenses,
 
-			setModal: (isOpen) => store.commit('setModal', isOpen)
 		}
 
 	}
 }
 </script>
-
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Raleway:wght@300;400;500;700&display=swap');
 

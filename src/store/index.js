@@ -1,5 +1,4 @@
 import { createStore } from 'vuex'
-import { v4 as uuidv4 } from 'uuid'
 import apiConnection from '../api/transactionApi'
 
 export default createStore({
@@ -46,8 +45,6 @@ export default createStore({
 				
 				commit('setTransactions', transactions)
 
-
-
 			} catch(error) {
 				console.log(error)
 			}
@@ -56,8 +53,6 @@ export default createStore({
 		async newTransaction({ commit },transaction){
 
 			try {
-				// add id
-				//transaction.id = uuidv4()
 				// save database
 				await apiConnection.post('/transactions.json',transaction)
 				// update state
@@ -77,7 +72,6 @@ export default createStore({
 			try {
 				// update in database
 				await apiConnection.put(`/transactions/${id}.json`, dataUpdated)
-				console.log(id)
 				// all rigth? change State
 				commit('updateTransaction', transaction)
 			} catch(error) {
@@ -111,7 +105,16 @@ export default createStore({
 
 		getModalStatus(state) {
 			return state.isOpenModal
-		}
+		},
+		
+		getTotalIncomings(_, getters){
+			return getters.getIncomings.reduce((acc, transaction) => acc + transaction.amount, 0)
+		},
+
+		getTotalExpenses(_, getters){
+			return getters.getExpenses.reduce((acc, transaction) => acc + transaction.amount, 0)
+		},
+
 	},
   modules: {
   }

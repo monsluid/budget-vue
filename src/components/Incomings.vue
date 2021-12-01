@@ -67,10 +67,9 @@
 
 <script>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
 
 import Modal from '../components/Modal'
-import  useTransaction from '../composables/useTransaction'
+import useTransaction from '../composables/useTransaction'
 
 export default {
 	props:['incomings'],
@@ -79,6 +78,7 @@ export default {
 		
 		const isOpen = ref(false)
 		const transaction = ref({})
+
 		const { updateTransaction, deleteTransaction } = useTransaction()
 
 		const setModal = (isOpenModal, incoming) => {

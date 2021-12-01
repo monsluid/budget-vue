@@ -3,9 +3,7 @@
 		@click="isOpen = true"
 	>Nuevo</button>
 
-	<Modal v-if="isOpen"
-		@on:close="isOpen = false"
-	>
+	<Modal v-if="isOpen" @on:close="isOpen = false">
 		<template v-slot:header>
 		<div class="modal-header">
 			<h5 class="modal-title">Agregar Movimiento</h5>
@@ -50,7 +48,6 @@
 
 <script>
 import { ref } from 'vue';
-import { useStore } from 'vuex'
 
 import Modal from '../components/Modal'
 import useTransaction from '../composables/useTransaction'
@@ -87,6 +84,5 @@ export default{
 	height: 70px;
 	border-radius: 50%;
 }
-
 </style>
 

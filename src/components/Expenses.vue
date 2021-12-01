@@ -22,7 +22,7 @@
 		<template v-slot:header>
 		<div class="modal-header">
 			<h5 class="modal-title">Editar Movimiento</h5>
-			<button @click="setModal(false)" class="btn btn-danger btn-sm"> Eliminar</button>		
+			<button @click="onDelete(transaction.id)" class="btn btn-danger btn-sm"> Eliminar</button>		
 		</div>
 		</template>
 		<template v-slot:body>
@@ -75,7 +75,7 @@ export default {
 	components: { Modal },
 	setup(props){
 
-		const { updateTransaction } = useTransaction()
+		const { updateTransaction, deleteTransaction } = useTransaction()
 		
 		const isOpen = ref(false)
 		const transaction = ref({})
@@ -91,14 +91,19 @@ export default {
 		const onClick = () => {
 				updateTransaction(transaction.value)
 				isOpen.value = false
-				console.log(transaction.value)
 			}
+
+		const onDelete = id => {
+			deleteTransaction(id)
+			isOpen.value = false
+		}
 
 		return {
 			isOpen,
 			transaction,
 			setModal,
-			onClick
+			onClick,
+			onDelete
 		}
 	}
 		
